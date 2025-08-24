@@ -7,29 +7,35 @@ import { UpdateDatosPersonaleDto } from './dto/update-datos_personale.dto';
 export class DatosPersonalesController {
   constructor(private readonly datosPersonalesService: DatosPersonalesService) {}
 
-  @Post()
-  create(@Body() createDatosPersonaleDto: CreateDatosPersonaleDto) {
-    return "Aquí se creará un nuevo dato personal";
+   @Post()
+  create(@Body() body: CreateDatosPersonaleDto) {
+    return this.datosPersonalesService.create(body);
   }
 
+  // Obtener todos los  datos personales
   @Get()
   findAll() {
-    return "Aquí se van a consultar todos los datos personales";
+    return this.datosPersonalesService.findAll();
   }
 
+  // Consultar un  dato personal por ID
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return `Aquí se va a consultar el dato personal con ID: ${id}`;
+    return this.datosPersonalesService.findOne(+id); // Convierte a número
   }
 
+  // Actualizar un  dato personale por ID
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateDatosPersonaleDto: UpdateDatosPersonaleDto) {
-    return `Aquí se va a actualizar el dato personal con ID: ${id}`;
+  update(@Param('id') id: string, @Body() UpdateDatosPersonaleDto: UpdateDatosPersonaleDto) {
+    return this.datosPersonalesService.update(+id, UpdateDatosPersonaleDto);
   }
 
-  
+  // Eliminar un  dato personale por ID
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return `Aquí se va a eliminar el dato personal con ID: ${id}`;
+    return {
+      Success: true,
+      mensaje: this.datosPersonalesService.remove(+id),
+    };
   }
 }

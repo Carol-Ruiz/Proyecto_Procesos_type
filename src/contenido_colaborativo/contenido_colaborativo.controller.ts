@@ -3,33 +3,40 @@ import { ContenidoColaborativoService } from './contenido_colaborativo.service';
 import { CreateContenidoColaborativoDto } from './dto/create-contenido_colaborativo.dto';
 import { UpdateContenidoColaborativoDto } from './dto/update-contenido_colaborativo.dto';
 
-@Controller('contenido-colaborativo')  
+@Controller('contenido-colaborativo')
 export class ContenidoColaborativoController {
   constructor(private readonly contenidoColaborativoService: ContenidoColaborativoService) {}
 
+  // Crear un nuevo contenido colaborativo
   @Post()
-  create(@Body() createContenidoColaborativoDto: CreateContenidoColaborativoDto) {
-    return "Aquí se creará un nuevo contenido colaborativo";
+  create(@Body() body: CreateContenidoColaborativoDto) {
+    return this.contenidoColaborativoService.create(body);
   }
 
+  // Obtener todos los contenidos colaborativos
   @Get()
   findAll() {
-    return "Aquí se van a consultar todos los contenidos colaborativos";
+    return this.contenidoColaborativoService.findAll();
   }
 
+  // Consultar un contenido colaborativo por ID
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return `Aquí se va a consultar el contenido colaborativo con ID: ${id}`;
+    return this.contenidoColaborativoService.findOne(+id); // Convierte a número
   }
 
+  // Actualizar un contenido colaborativo por ID
   @Patch(':id')
-  update(@Param('id') id: string) {
-    return `Aquí se va a actualizar el contenido colaborativo con ID: ${id}`;
+  update(@Param('id') id: string, @Body() updateContenidoColaborativoDto: UpdateContenidoColaborativoDto) {
+    return this.contenidoColaborativoService.update(+id, updateContenidoColaborativoDto);
   }
 
- 
+  // Eliminar un contenido colaborativo por ID
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return `Aquí se va a eliminar el contenido colaborativo con ID: ${id}`;
+    return {
+      Success: true,
+      mensaje: this.contenidoColaborativoService.remove(+id),
+    };
   }
 }

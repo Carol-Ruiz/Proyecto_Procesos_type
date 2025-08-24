@@ -6,29 +6,35 @@ import { UpdateSesionesPracticaDto } from './dto/update-sesiones_practica.dto';
 @Controller('sesiones-practicas')  
 export class SesionesPracticasController {
   constructor(private readonly sesionesPracticasService: SesionesPracticasService) {}
-
+ // Crear una sesion practica 
   @Post()
-  create(@Body() createSesionesPracticaDto: CreateSesionesPracticaDto) {
-    return "Aquí se creará una nueva sesión práctica";
+  create(@Body() body: CreateSesionesPracticaDto) {
+    return this.sesionesPracticasService.create(body);
   }
 
+  // Obtener todas las sesiones practicas
   @Get()
   findAll() {
-    return "Aquí se van a consultar todas las sesiones prácticas";
+    return this.sesionesPracticasService.findAll();
   }
-
+  // Consultar una sesion practica por ID
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return `Aquí se va a consultar la sesión práctica con ID: ${id}`;
+    return this.sesionesPracticasService.findOne(+id); // Convierte a número
   }
 
+  // Actualizar una sesion practica por ID
   @Patch(':id')
-  update(@Param('id') id: string) {
-    return `Aquí se va a actualizar la sesión práctica con ID: ${id}`;
+  update(@Param('id') id: string, @Body()  UpdateSesionesPracticaDto: UpdateSesionesPracticaDto) {
+    return this.sesionesPracticasService.update(+id,  UpdateSesionesPracticaDto);
   }
 
+  // Eliminar una sesion practica  por ID
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return `Aquí se va a eliminar la sesión práctica con ID: ${id}`;
+    return {
+      Success: true,
+      mensaje: this.sesionesPracticasService.remove(+id),
+    };
   }
 }

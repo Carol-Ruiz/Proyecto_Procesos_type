@@ -7,29 +7,35 @@ import { UpdateParticipacionDto } from './dto/update-participacion.dto';
 export class ParticipacionController {
   constructor(private readonly participacionService: ParticipacionService) {}
 
+  // Crear una nueva participacion
   @Post()
-  create(@Body() createParticipacionDto: CreateParticipacionDto) {
-    return "Aquí se creará una nueva participación";
+  create(@Body() body: CreateParticipacionDto) {
+    return this.participacionService.create(body);
   }
 
+  // Obtener todas las participacion
   @Get()
   findAll() {
-    return "Aquí se van a consultar todas las participaciones";
+    return this.participacionService.findAll();
   }
-
+  // Consultar una participacion por ID
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return `Aquí se va a consultar la participación con ID: ${id}`;
+    return this.participacionService.findOne(+id); // Convierte a número
   }
 
+  // Actualizar una participacion por ID
   @Patch(':id')
-  update(@Param('id') id: string) {
-    return `Aquí se va a actualizar la participación con ID: ${id}`;
+  update(@Param('id') id: string, @Body() UpdateParticipacionDto: UpdateParticipacionDto) {
+    return this.participacionService.update(+id, UpdateParticipacionDto);
   }
 
-  
+  // Eliminar una participacion por ID
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return `Aquí se va a eliminar la participación con ID: ${id}`;
+    return {
+      Success: true,
+      mensaje: this.participacionService.remove(+id),
+    };
   }
 }

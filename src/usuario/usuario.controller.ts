@@ -7,28 +7,35 @@ import { UpdateUsuarioDto } from './dto/update-usuario.dto';
 export class UsuarioController {
   constructor(private readonly usuarioService: UsuarioService) {}
 
-  @Post()
-  create(@Body() createUsuarioDto: CreateUsuarioDto) {
-    return "Aquí se creará un nuevo usuario";
-  }
-
-  @Get()
-  findAll() {
-    return "Aquí se van a consultar todos los usuarios";
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return `Aquí se va a consultar el usuario con ID: ${id}`;
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string) {
-    return `Aquí se va a actualizar el usuario con ID: ${id}`;
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return `Aquí se va a eliminar el usuario con ID: ${id}`;
-  }
+  // Crear un usuario
+   @Post()
+   create(@Body() body: CreateUsuarioDto) {
+     return this.usuarioService.create(body);
+   }
+ 
+   // Obtener todos los usuarios
+   @Get()
+   findAll() {
+     return this.usuarioService.findAll();
+   }
+   // Consultar un usuario por ID
+   @Get(':id')
+   findOne(@Param('id') id: string) {
+     return this.usuarioService.findOne(+id); // Convierte a número
+   }
+ 
+   // Actualizar un usuario por ID
+   @Patch(':id')
+   update(@Param('id') id: string, @Body()  UpdateUsuarioDto: UpdateUsuarioDto) {
+     return this.usuarioService.update(+id, UpdateUsuarioDto);
+   }
+ 
+   // Eliminar un usuario por ID
+   @Delete(':id')
+   remove(@Param('id') id: string) {
+     return {
+       Success: true,
+       mensaje: this.usuarioService.remove(+id),
+     };
+   }
 }

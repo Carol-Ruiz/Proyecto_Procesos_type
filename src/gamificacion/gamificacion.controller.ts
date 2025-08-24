@@ -7,28 +7,36 @@ import { UpdateGamificacionDto } from './dto/update-gamificacion.dto';
 export class GamificacionController {
   constructor(private readonly gamificacionService: GamificacionService) {}
 
-  @Post()
-  create(@Body() createGamificacionDto: CreateGamificacionDto) {
-    return "Aquí se creará una nueva gamificación";
+
+   @Post()
+  create(@Body() body: CreateGamificacionDto) {
+    return this.gamificacionService.create(body);
   }
 
+  // Obtener todas las evaluaciones
   @Get()
   findAll() {
-    return "Aquí se van a consultar todas las gamificaciones";
+    return this.gamificacionService.findAll();
   }
 
+  // Consultar una evaluacion por ID
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return `Aquí se va a consultar la gamificación con ID: ${id}`;
+    return this.gamificacionService.findOne(+id); // Convierte a número
   }
 
+  // Actualizar una evaluacion por ID
   @Patch(':id')
-  update(@Param('id') id: string) {
-    return `Aquí se va a actualizar la gamificación con ID: ${id}`;
+  update(@Param('id') id: string, @Body() UpdateGamificacionDto: UpdateGamificacionDto) {
+    return this.gamificacionService.update(+id, UpdateGamificacionDto);
   }
 
+  // Eliminar uns evaluacion por ID
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return `Aquí se va a eliminar la gamificación con ID: ${id}`;
+    return {
+      Success: true,
+      mensaje: this.gamificacionService.remove(+id),
+    };
   }
 }

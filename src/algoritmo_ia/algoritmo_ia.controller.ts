@@ -6,30 +6,36 @@ import { UpdateAlgoritmoIaDto } from './dto/update-algoritmo_ia.dto';
 @Controller('algoritmo-ia')  // Ruta base 'algoritmo-ia'
 export class AlgoritmoIaController {
   constructor(private readonly algoritmoIaService: AlgoritmoIaService) {}
-
+  // Crear un algoritmo
   @Post()
-  create(@Body() createAlgoritmoIaDto: CreateAlgoritmoIaDto) {
-    return "Aquí se creará un nuevo algoritmo IA";
+  create(@Body() body: CreateAlgoritmoIaDto) {
+    return this.algoritmoIaService.create(body);
   }
 
+  // Obtener todos los algoritmos
   @Get()
   findAll() {
-    return "Aquí se van a consultar todos los algoritmos IA";
+    return this.algoritmoIaService.findAll();
   }
 
+  // Consultar un algoritmo por ID
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return `Aquí se va a consultar el algoritmo IA con ID: ${id}`;
+    return this.algoritmoIaService.findOne(+id);  // Convierte a número
   }
 
+  // Actualizar algoritmo por ID
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateAlgoritmoIaDto: UpdateAlgoritmoIaDto) {
-    return `Aquí se va a actualizar el algoritmo IA con ID: ${id}`;
+  update(@Param('id') id: string, @Body() UpdateAlgoritmoIaDto: UpdateAlgoritmoIaDto) {
+    return this.algoritmoIaService.update(+id, UpdateAlgoritmoIaDto);
   }
 
-  
+  // Eliminar algoritmo por ID
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return `Aquí se va a eliminar el algoritmo IA con ID: ${id}`;
+    return {
+      Success: true,
+      mensaje: this.algoritmoIaService.remove(+id),
+    };
   }
 }

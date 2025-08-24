@@ -7,28 +7,36 @@ import { UpdateMetricasSesionDto } from './dto/update-metricas_sesion.dto';
 export class MetricasSesionController {
   constructor(private readonly metricasSesionService: MetricasSesionService) {}
 
-  @Post()
-  create(@Body() createMetricasSesionDto: CreateMetricasSesionDto) {
-    return "Aquí se creará una nueva métrica de sesión";
+
+   @Post()
+  create(@Body() body: CreateMetricasSesionDto) {
+    return this.metricasSesionService.create(body);
   }
 
+  // Obtener todas las evaluaciones
   @Get()
   findAll() {
-    return "Aquí se van a consultar todas las métricas de sesión";
+    return this.metricasSesionService.findAll();
   }
 
+  // Consultar una evaluacion por ID
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return `Aquí se va a consultar la métrica de sesión con ID: ${id}`;
+    return this.metricasSesionService.findOne(+id); // Convierte a número
   }
 
+  // Actualizar una evaluacion por ID
   @Patch(':id')
-  update(@Param('id') id: string) {
-    return `Aquí se va a actualizar la métrica de sesión con ID: ${id}`;
+  update(@Param('id') id: string, @Body() UpdateMetricasSesionDto: UpdateMetricasSesionDto) {
+    return this.metricasSesionService.update(+id, UpdateMetricasSesionDto);
   }
 
+  // Eliminar uns evaluacion por ID
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return `Aquí se va a eliminar la métrica de sesión con ID: ${id}`;
+    return {
+      Success: true,
+      mensaje: this.metricasSesionService.remove(+id),
+    };
   }
 }

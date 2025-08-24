@@ -15,12 +15,11 @@ import { ParticipacionModule } from './participacion/participacion.module';
 import { GamificacionModule } from './gamificacion/gamificacion.module';
 import { SoporteTecnicoModule } from './soporte_tecnico/soporte_tecnico.module';
 import { EvaluacionInicialModule } from './evaluacion_inicial/evaluacion_inicial.module';
-import { PerfilModule } from './perfil/perfil.module';
 import { AlgoritmoIaModule } from './algoritmo_ia/algoritmo_ia.module';
 import { DatosPersonalesModule } from './datos_personales/datos_personales.module';
 
 @Module({
-  imports: [ComunidadModule, UsuarioModule, SesionesPracticasModule, NotificacionesModule, TipoTecnicaModule, ProgresoModule, ContenidoColaborativoModule, ReporteModule, RecordatorioModule, MetricasSesionModule, ParticipacionModule, GamificacionModule, SoporteTecnicoModule, EvaluacionInicialModule, PerfilModule, AlgoritmoIaModule, DatosPersonalesModule],
+  imports: [ComunidadModule, UsuarioModule, SesionesPracticasModule, NotificacionesModule, TipoTecnicaModule, ProgresoModule, ContenidoColaborativoModule, ReporteModule, RecordatorioModule, MetricasSesionModule, ParticipacionModule, GamificacionModule, SoporteTecnicoModule, EvaluacionInicialModule,  AlgoritmoIaModule, DatosPersonalesModule],
   controllers: [AppController],
   providers: [AppService],
 })

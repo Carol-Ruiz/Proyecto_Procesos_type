@@ -2,33 +2,41 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { ProgresoService } from './progreso.service';
 import { CreateProgresoDto } from './dto/create-progreso.dto';
 import { UpdateProgresoDto } from './dto/update-progreso.dto';
+import { UpdateParticipacionDto } from 'src/participacion/dto/update-participacion.dto';
 
 @Controller('progreso')  
 export class ProgresoController {
   constructor(private readonly progresoService: ProgresoService) {}
 
+  // Crear un nuevo progreso
   @Post()
-  create(@Body() createProgresoDto: CreateProgresoDto) {
-    return "Aquí se creará un nuevo progreso";
+  create(@Body() body: CreateProgresoDto) {
+    return this.progresoService.create(body);
   }
 
+  // Obtener todos los progresos
   @Get()
   findAll() {
-    return "Aquí se van a consultar todos los progresos";
+    return this.progresoService.findAll();
   }
-
+  // Consultar un nuevo progreso por ID
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return `Aquí se va a consultar el progreso con ID: ${id}`;
+    return this.progresoService.findOne(+id); // Convierte a número
   }
 
+  // Actualizar un nuevo progreso por ID
   @Patch(':id')
-  update(@Param('id') id: string) {
-    return `Aquí se va a actualizar el progreso con ID: ${id}`;
+  update(@Param('id') id: string, @Body() UpdateProgresoDto: UpdateProgresoDto) {
+    return this.progresoService.update(+id, UpdateProgresoDto);
   }
 
+  // Eliminar un nuevo progreso por ID
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return `Aquí se va a eliminar el progreso con ID: ${id}`;
+    return {
+      Success: true,
+      mensaje: this.progresoService.remove(+id),
+    };
   }
 }

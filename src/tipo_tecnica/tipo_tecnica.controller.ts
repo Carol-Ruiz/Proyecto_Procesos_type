@@ -7,28 +7,35 @@ import { UpdateTipoTecnicaDto } from './dto/update-tipo_tecnica.dto';
 export class TipoTecnicaController {
   constructor(private readonly tipoTecnicaService: TipoTecnicaService) {}
 
+ // Crear una  tecnica 
   @Post()
-  create(@Body() createTipoTecnicaDto: CreateTipoTecnicaDto) {
-    return "Aquí se creará un nuevo tipo de técnica";
+  create(@Body() body: CreateTipoTecnicaDto) {
+    return this.tipoTecnicaService.create(body);
   }
 
+  // Obtener todos las tecnicas
   @Get()
   findAll() {
-    return "Aquí se van a consultar todos los tipos de técnica";
+    return this.tipoTecnicaService.findAll();
   }
-
+  // Consultar una tecnica por ID
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return `Aquí se va a consultar el tipo de técnica con ID: ${id}`;
+    return this.tipoTecnicaService.findOne(+id); // Convierte a número
   }
 
+  // Actualizar una tecnica por ID
   @Patch(':id')
-  update(@Param('id') id: string) {
-    return `Aquí se va a actualizar el tipo de técnica con ID: ${id}`;
+  update(@Param('id') id: string, @Body()  UpdateTipoTecnicaDto: UpdateTipoTecnicaDto) {
+    return this.tipoTecnicaService.update(+id, UpdateTipoTecnicaDto);
   }
 
+  // Eliminar una tecnica por ID
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return `Aquí se va a eliminar el tipo de técnica con ID: ${id}`;
+    return {
+      Success: true,
+      mensaje: this.tipoTecnicaService.remove(+id),
+    };
   }
 }
