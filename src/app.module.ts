@@ -17,9 +17,10 @@ import { SoporteTecnicoModule } from './soporte_tecnico/soporte_tecnico.module';
 import { EvaluacionInicialModule } from './evaluacion_inicial/evaluacion_inicial.module';
 import { AlgoritmoIaModule } from './algoritmo_ia/algoritmo_ia.module';
 import { DatosPersonalesModule } from './datos_personales/datos_personales.module';
+import { PrismaModule } from './prisma/prisma.module';
 
 @Module({
-  imports: [ComunidadModule, UsuarioModule, SesionesPracticasModule, NotificacionesModule, TipoTecnicaModule, ProgresoModule, ContenidoColaborativoModule, ReporteModule, RecordatorioModule, MetricasSesionModule, ParticipacionModule, GamificacionModule, SoporteTecnicoModule, EvaluacionInicialModule,  AlgoritmoIaModule, DatosPersonalesModule],
+  imports: [ComunidadModule, UsuarioModule, SesionesPracticasModule, NotificacionesModule, TipoTecnicaModule, ProgresoModule, ContenidoColaborativoModule, ReporteModule, RecordatorioModule, MetricasSesionModule, ParticipacionModule, GamificacionModule, SoporteTecnicoModule, EvaluacionInicialModule,  AlgoritmoIaModule, DatosPersonalesModule, PrismaModule],
   controllers: [AppController],
   providers: [AppService],
 })
